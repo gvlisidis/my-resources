@@ -8,7 +8,10 @@
                         @foreach($resources->chunk(4) as $chunk)
                             <div class="flex justify-center">
                                 @foreach($chunk as $resource)
-                                    <div class="flex flex-col justify-around w-80 p-3 bg-white shadow-lg rounded-lg my-20 h-48 {{ $loop->last ? 'mr-0' : 'mr-8' }}">
+                                    <div class="card flex flex-col justify-around w-80 p-3 bg-white shadow-lg rounded-lg my-10 h-48 {{ $loop->last ? 'mr-0' : 'mr-8' }}">
+                                        <div class="flex justify-end">
+                                            <a href="{{ route('resources.edit', $resource) }}" class="edit-button bg-red-500 text-white font-semibold text-xs w-8 rounded text-center right-0">Edit</a>
+                                        </div>
                                         <div>
                                             <h2 class="text-gray-800 text-2xl font-bold"><a href="{{ $resource->url }}" target="_blank">{{ $resource->title }}</a></h2>
                                         </div>
@@ -21,7 +24,6 @@
 
                         @endforeach
                     </div>
-
                 </div>
                 {{ $resources->onEachSide(2)->links() }}
             </div>
