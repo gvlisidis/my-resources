@@ -16,6 +16,20 @@
                                 <label for="link" class="font-bold">Link</label>
                                 <input type="text" name="link" id="link" class="border-gray-500 rounded w-96 px-4 py-2" value="{{ $resource->url }}" />
                             </div>
+                            <div class="flex flex-col mt-8">
+                                <label for="type" class="font-bold">Resource Type</label>
+                                <select class="rounded w-96">
+                                    @foreach($resource_types as $key => $type)
+                                        <option value="{{ $key }}" {{ $key == $resource->type ? 'selected' : '' }}>{{ $type }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @if ($resource->type == 2)
+                                <div class="flex flex-col mt-8">
+                                    <label for="description" class="font-bold">Description</label>
+                                    <textarea name="description" id="description" cols="50" rows="10" class="rounded"></textarea>
+                                </div>
+                            @endif
                             <div class="mt-8">
                                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white text-center rounded-xl">Save</button>
                             </div>

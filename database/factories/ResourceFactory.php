@@ -26,6 +26,7 @@ class ResourceFactory extends Factory
             'title' => $this->faker->words(rand(4, 8), true),
             'description' => $this->faker->sentences(rand(3, 7), true),
             'url' => $this->faker->url,
+            'type' => $this->faker->numberBetween(1,5),
         ];
     }
 }

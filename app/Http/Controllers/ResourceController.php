@@ -11,12 +11,17 @@ class ResourceController extends Controller
     {
         $resources = auth()->user()->resources()->paginate(12);
 
-        return view('resources.index', compact('resources'));
+        return view('resources.index')->with([
+            'resources' => $resources,
+        ]);
     }
 
     public function edit(Resource $resource)
     {
-        return view('resources.show', compact('resource'));
+        return view('resources.edit')->with([
+            'resource' => $resource,
+            'resource_types' => Resource::RESOURCE_TYPES,
+        ]);
     }
 
     public function update(Request $request, Resource $resource)
