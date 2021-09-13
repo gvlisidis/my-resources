@@ -4,13 +4,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex flex-col">
-                        @foreach($resources as $key => $chunk)
-                            <div class="flex flex-col items-start ml-2">
-                                <div class="">
-                                    <p class="font-bold text-lg text-purple-800">{{ $key }}</p>
-                                </div>
+                        <div class="flex justify-center">
+                            <p class="font-bold text-lg text-purple-800">{{ $name }}</p>
+                        </div>
+                        @foreach($resources->chunk(4) as $group)
                                 <div class="flex justify-center">
-                                    @foreach($chunk->take(4) as $resource)
+                                    @foreach($group as $resource)
                                         <div
                                             class="card flex flex-col justify-around w-80 p-3 bg-white shadow-lg rounded-lg my-10 h-48 {{ $loop->last ? 'mr-0' : 'mr-8' }}">
                                             <div class="flex justify-end">
@@ -28,10 +27,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="flex justify-items-center">
-                                        <a href="{{ route('resources.selected', \Illuminate\Support\Str::lower($key)) }}" class=" px-4 py-2 bg-gray-500 text-white text-center  rounded-xl">Show more</a>
-                                </div>
-                            </div>
                         @endforeach
                     </div>
                 </div>

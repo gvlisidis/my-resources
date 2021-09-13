@@ -27,6 +27,22 @@ class Resource extends Model
        self::BLOG => 'Blog',
     ];
 
+    public static function getResourceType(string $string)
+    {
+        switch ($string){
+            case 'Article':
+                return self::ARTICLE;
+            case 'Snippet':
+                return self::SNIPPET;
+            case 'Video':
+                return self::VIDEO;
+            case 'Package':
+                return self::PACKAGE;
+            case 'Blog':
+                return self::BLOG;
+        }
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
