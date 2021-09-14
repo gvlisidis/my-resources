@@ -15,6 +15,8 @@ class ResourceController extends Controller
     {
         $resources = auth()->user()->resources()->get()->groupBy(function ($item, $key) {
             return Str::plural(Resource::RESOURCE_TYPES[$item['type']]);
+        })->transform(function ($item) {
+            return $item->take(4);
         });
 
         return view('resources.index')->with([
