@@ -29,9 +29,7 @@
             </div>
 
             <div class="mt-8">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white text-center rounded-xl">
-                    Save
-                </button>
+                <x-button class="bg-blue-500 hover:bg-blue-600">Save</x-button>
             </div>
         </form>
     </div>

@@ -40,10 +40,10 @@
                 @enderror
             @endif
             <div class="flex justify-between mt-8 w-full">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white text-center rounded-xl">Update</button>
-                <a href="{{ route('resources.index') }}" class="px-4 py-2 bg-gray-500 text-white text-center rounded-xl">Back</a>
+                <x-button class="bg-blue-500 hover:bg-blue-600">Update</x-button>
+                <a href="{{ route('resources.index') }}" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white text-center rounded">Back</a>
                 <a href="{{ route('resources.create') }}"
-                   class=" px-4 py-2 bg-green-400 text-white text-center rounded-xl">Create</a>
+                   class=" px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-center rounded">Create</a>
             </div>
         </form>
     </div>
