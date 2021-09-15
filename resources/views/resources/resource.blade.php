@@ -1,7 +1,11 @@
 @extends('resources.resources-layout')
 
 @section('content')
-    @include('resources.partials.create-button')
+    <div class="flex justify-between">
+        @include('resources.partials.create-button')
+        @include('resources.partials.back-button')
+
+    </div>
     <div class="flex flex-col">
         <div class="flex justify-center mb-10">
             <p class="font-bold text-lg text-purple-800">{{ $name }}</p>

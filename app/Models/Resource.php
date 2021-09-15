@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 
 class Resource extends Model
 {
@@ -26,6 +27,14 @@ class Resource extends Model
        self::PACKAGE => 'Package',
        self::BLOG => 'Blog',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function () {
+            Cache::forget('resources');
+        });
+    }
 
     public static function getResourceType(string $string)
     {

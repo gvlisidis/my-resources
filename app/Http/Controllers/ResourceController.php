@@ -6,6 +6,7 @@ use App\Http\Requests\CreateResourceRequest;
 use App\Http\Requests\UpdateResourceRequest;
 use App\Models\Resource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -13,11 +14,16 @@ class ResourceController extends Controller
 {
     public function index()
     {
-        $resources = auth()->user()->resources()->get()->groupBy(function ($item, $key) {
-            return Str::plural(Resource::RESOURCE_TYPES[$item['type']]);
-        })->transform(function ($item) {
-            return $item->take(4);
-        });
+        if (!Cache::has('resources')) {
+            Cache::put('resources', auth()->user()->resources()->latest()->get()->groupBy(function ($item, $key) {
+                return Str::plural(Resource::RESOURCE_TYPES[$item['type']]);
+            })->transform(function ($item) {
+                return $item->take(4);
+            }));
+        }
+
+
+        $resources = Cache::get('resources');
 
         return view('resources.index')->with([
             'resources' => $resources,
@@ -57,9 +63,18 @@ class ResourceController extends Controller
 
     public function selectedResource($key)
     {
-        $name =Str::ucfirst($key);
-        $type = Resource::getResourceType(Str::singular($name));
-        $resources = auth()->user()->resources()->whereType($type)->get();
+        $name = Str::ucfirst($key);
+        $type = Str::singular($name);
+        if (!Cache::has($key)) {
+            Cache::put($key, auth()->user()
+                ->resources()
+                ->whereType(Resource::getResourceType($type))
+                ->get()
+            );
+        }
+
+        $resources = Cache::get($key);
+
         return view('resources.resource')->with([
             'resources' => $resources,
             'name' => $name,
