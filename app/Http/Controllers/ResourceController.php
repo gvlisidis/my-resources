@@ -14,16 +14,15 @@ class ResourceController extends Controller
 {
     public function index()
     {
-        if (!Cache::has('resources')) {
-            Cache::put('resources', auth()->user()->resources()->latest()->get()->groupBy(function ($item, $key) {
+        if (!Cache::has('resources-' . auth()->id())) {
+            Cache::put('resources-' . auth()->id(), auth()->user()->resources()->latest()->get()->groupBy(function ($item, $key) {
                 return Str::plural(Resource::RESOURCE_TYPES[$item['type']]);
             })->transform(function ($item) {
                 return $item->take(4);
             }));
         }
 
-
-        $resources = Cache::get('resources');
+        $resources = Cache::get('resources-' . auth()->id());
 
         return view('resources.index')->with([
             'resources' => $resources,
@@ -65,15 +64,17 @@ class ResourceController extends Controller
     {
         $name = Str::ucfirst($key);
         $type = Str::singular($name);
-        if (!Cache::has($key)) {
-            Cache::put($key, auth()->user()
-                ->resources()
-                ->whereType(Resource::getResourceType($type))
-                ->get()
+        if (!Cache::has($key . '-' . auth()->id())) {
+            Cache::put(
+                $key . '-' . auth()->id(),
+                auth()->user()
+                    ->resources()
+                    ->whereType(Resource::getResourceType($type))
+                    ->get()
             );
         }
 
-        $resources = Cache::get($key);
+        $resources = Cache::get($key . '-' . auth()->id());
 
         return view('resources.resource')->with([
             'resources' => $resources,
