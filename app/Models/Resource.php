@@ -32,7 +32,7 @@ class Resource extends Model
     {
         parent::boot();
         static::saving(function () {
-            Cache::forget('resources');
+            Cache::forget('resources-' . auth()->id());
         });
     }
 

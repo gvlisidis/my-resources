@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex justify-center">
-        <form action="{{ route('resources.update', $resource) }}" method="post" class="w-104">
+        <form action="{{ route('resources.update', $resource) }}" method="post" class="container">
             @csrf
             @method('patch')
             <div class="flex flex-col">
@@ -33,7 +33,7 @@
             @if ($resource->type === 2)
                 <div class="flex flex-col mt-8">
                     <label for="description" class="font-bold">Description</label>
-                    <textarea name="description" id="description" cols="50" rows="10" class="rounded">{{ $resource->description }}</textarea>
+                    <textarea name="description" id="description" cols="100" rows="10" class="rounded w-full">{{ $resource->description }}</textarea>
                 </div>
                 @error('description')
                 <div class="text-red-700 text-sm">{{ $message }}</div>

@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Resource;
+use App\Models\Article;
+use App\Models\Blog;
+use App\Models\Book;
+use App\Models\Package;
+use App\Models\Snippet;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +23,12 @@ class DatabaseSeeder extends Seeder
              'name' => 'George',
              'email' => 'gv@mail.com',
          ]);
-
-         Resource::factory(100)->create();
+         
+         Article::factory(36)->create();
+         Blog::factory(25)->create();
+         Video::factory(51)->create();
+         Package::factory(6)->create();
+         Snippet::factory(94)->create();
+         Book::factory(14)->create();
     }
 }

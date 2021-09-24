@@ -5,27 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateResourceRequest;
 use App\Http\Requests\UpdateResourceRequest;
 use App\Models\Resource;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (!Cache::has('resources-' . auth()->id())) {
-            Cache::put('resources-' . auth()->id(), auth()->user()->resources()->latest()->get()->groupBy(function ($item, $key) {
-                return Str::plural(Resource::RESOURCE_TYPES[$item['type']]);
-            })->transform(function ($item) {
-                return $item->take(4);
-            }));
-        }
-
-        $resources = Cache::get('resources-' . auth()->id());
+        $user = $request->user();
 
         return view('resources.index')->with([
-            'resources' => $resources,
+            'articles' => $user->articles()->orderByDesc('id')->take(4)->get(),
+            'blogs' => $user->blogs()->orderByDesc('id')->take(4)->get(),
+            'packages' => $user->packages()->orderByDesc('id')->take(4)->get(),
+            'videos' => $user->videos()->orderByDesc('id')->take(4)->get(),
+            'snippets' => $user->videos()->orderByDesc('id')->take(4)->get(),
+            'books' => $user->books()->orderByDesc('id')->take(4)->get(),
         ]);
     }
 
@@ -40,7 +36,14 @@ class ResourceController extends Controller
     public function update(UpdateResourceRequest $request, Resource $resource)
     {
         $data = $request->validated();
-        $resource->update($data);
+
+        $resource->update([
+            'title' => $data['title'],
+            'url' => $data['url'],
+            'description' =>    htmlspecialchars_decode($data['description']),
+            'type' => $data['type'],
+        ]);
+        Cache::forget(Str::singular(Str::ucfirst(Resource::RESOURCE_TYPES[$data['type']])) . '-' . auth()->id());
 
         return redirect()->route('resources.index');
     }
@@ -67,9 +70,10 @@ class ResourceController extends Controller
         if (!Cache::has($key . '-' . auth()->id())) {
             Cache::put(
                 $key . '-' . auth()->id(),
-                auth()->user()
+                request()->user()
                     ->resources()
                     ->whereType(Resource::getResourceType($type))
+                    ->latest()
                     ->get()
             );
         }
@@ -80,5 +84,10 @@ class ResourceController extends Controller
             'resources' => $resources,
             'name' => $name,
         ]);
+    }
+
+    public function snippet(Resource $resource)
+    {
+        return view('resources.snippet')->with(['snippet' => $resource]);
     }
 }
