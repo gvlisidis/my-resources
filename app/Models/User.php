@@ -45,31 +45,31 @@ class User extends Authenticatable
 
     public function articles(): HasMany
     {
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Article::class)->orderByDesc('id');
     }
 
     public function blogs(): HasMany
     {
-        return $this->hasMany(Blog::class);
+        return $this->hasMany(Blog::class)->orderByDesc('id');
     }
 
     public function packages(): HasMany
     {
-        return $this->hasMany(Package::class);
+        return $this->hasMany(Package::class)->orderByDesc('id');
     }
 
     public function videos(): HasMany
     {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Video::class)->orderByDesc('id');
     }
 
     public function snippets(): HasMany
     {
-        return $this->hasMany(Snippet::class);
+        return $this->hasMany(Snippet::class)->orderByDesc('id');
     }
 
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class);
+        return $this->hasMany(Book::class)->orderByDesc('id');
     }
 }

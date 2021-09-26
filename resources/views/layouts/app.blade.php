@@ -19,6 +19,7 @@
     <script>hljs.highlightAll();</script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -31,7 +32,7 @@
         </main>
     </div>
 
-    
+    @livewireScripts
     <script src="{{ asset('js/edit-card.js') }}"></script>
 </body>
 
