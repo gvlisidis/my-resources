@@ -1,6 +1,7 @@
 @extends('resources.resources-layout')
 
 @section('content')
+@livewire('resource')
 <div class="flex flex-col">
     <p class="font-bold text-2xl ml-12 text-purple-800">Articles</p>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mx-auto">
