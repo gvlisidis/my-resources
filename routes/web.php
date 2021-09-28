@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('articles')->as('articles.')->group(function() {
         Route::get('', [ArticleController::class, 'index'])->name('index');
+        Route::get('/create', [ArticleController::class, 'create'])->name('create');
     });
 
     Route::prefix('snippets')->as('snippets.')->group(function() {
