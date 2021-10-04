@@ -25,6 +25,16 @@ class ResourceController extends Controller
         ]);
     }
 
+    public function resourceIndex(Request $request)
+    {
+        $resourceString = $request->route()->uri;
+        $user = $request->user();
+        $user->setRelation($resourceString);
+        dd($user);
+
+        return view($resourceString . '.index')->with($resourceString, auth()->user()->articles()->paginate(12));
+    }
+
     public function edit(Resource $resource)
     {
         return view('resources.edit')->with([

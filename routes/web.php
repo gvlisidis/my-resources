@@ -13,6 +13,7 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\ResourceController::class, 'index'])->name('resources.index');
+    Route::get('/test', [\App\Http\Controllers\ResourceController::class, 'resourceIndex'])->name('resources.test');
     // Route::get('/resources/create', [\App\Http\Controllers\ResourceController::class, 'create'])->name('resources.create');
     // Route::get('/resources/{resource}', [\App\Http\Controllers\ResourceController::class, 'edit'])->name('resources.edit');
     // Route::patch('/resources/{resource}', [\App\Http\Controllers\ResourceController::class, 'update'])->name('resources.update');
@@ -22,7 +23,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('articles')->as('articles.')->group(function() {
         Route::get('', [ArticleController::class, 'index'])->name('index');
-        Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        // Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        // Route::get('/update/{article}', [ArticleController::class, 'create'])->name('create');
     });
 
     Route::prefix('snippets')->as('snippets.')->group(function() {

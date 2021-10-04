@@ -2,18 +2,18 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Article;
+use App\Models\Blog;
 use Livewire\Component;
 
-class Articles extends Component
+class Blogs extends Component
 {
-    public $title, $author, $url, $article_id;
+    public $title, $author, $url, $blog_id;
     public $isOpen = 0;
 
     public function render()
     {
-        return view('livewire.articles.articles', [
-            'articles' => auth()->user()->articles()->paginate(12),
+        return view('livewire.blogs.blogs', [
+            'blogs' => auth()->user()->blogs()->paginate(12),
         ]);
     }
 
@@ -41,7 +41,7 @@ class Articles extends Component
             'author' => 'sometimes|nullable',
         ]);
 
-        Article::updateOrCreate(['id' => $this->article_id], [
+        Blog::updateOrCreate(['id' => $this->blog_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'url' => $this->url,
@@ -50,7 +50,7 @@ class Articles extends Component
 
         session()->flash(
             'message',
-            $this->article_id ? 'Article Updated Successfully.' : 'Article Created Successfully.'
+            $this->blog_id ? 'Blog Updated Successfully.' : 'Blog Created Successfully.'
         );
         $this->closeModal();
         $this->reset();
@@ -58,11 +58,11 @@ class Articles extends Component
 
     public function edit($id)
     {
-        $article = Article::findOrFail($id);
-        $this->article_id = $id;
-        $this->title = $article->title;
-        $this->url = $article->url;
-        $this->author = $article->author;
+        $blog = Blog::findOrFail($id);
+        $this->blog_id = $id;
+        $this->title = $blog->title;
+        $this->url = $blog->url;
+        $this->author = $blog->author;
 
         $this->openModal();
     }

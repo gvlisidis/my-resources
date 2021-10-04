@@ -1,13 +1,10 @@
 <div class="flex flex-col mb-8">
-    <p class="font-bold text-2xl ml-12 text-purple-800">{{ $title }}</p>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mx-auto">
+    <p class="ml-12 text-2xl font-bold text-purple-800">{{ $title }}</p>
+    <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
         @foreach($resources as $resource)
-        <div class="card flex flex-col justify-around w-80 p-3 bg-white shadow-lg rounded-lg my-10 h-48">
-            <div class="flex justify-end h-4">
-                <a href="#" class="edit-button bg-red-500 hover:bg-red-600 text-white font-semibold text-xs w-8 rounded text-center">Edit</a>
-            </div>
+        <div class="flex flex-col justify-around h-48 p-3 my-10 bg-white rounded-lg shadow-lg card w-80">
             <div>
-                <h2 class="text-gray-800 text-2xl font-bold"><a href="{{ $resource->url }}" target="_blank">{{ $resource->title }}</a>
+                <h2 class="text-2xl font-bold text-gray-800"><a href="{{ $resource->url }}" target="_blank">{{ $resource->title }}</a>
                 </h2>
             </div>
             <div class="flex justify-end mt-4">
@@ -17,6 +14,6 @@
         @endforeach
     </div>
     <div class="flex justify-center">
-        <a href="{{ route( Str::lower($title) . '.index') }}" class=" px-4 py-2 bg-purple-500 text-white text-center rounded hover:bg-purple-600">Show all {{ $title }}</a>
+        <a href="{{ route( Str::lower($title) . '.index') }}" class="px-4 py-2 text-center text-white bg-purple-500 rounded  hover:bg-purple-600">Show all {{ $title }}</a>
     </div>
 </div>

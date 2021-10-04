@@ -1,10 +1,10 @@
 $(document).ready(function (){
     $(this).find('.edit-button').hide();
     $('.card').hover(function() {
-            $(this).find('.edit-button').show();
+            $(this).closest('div').find('.edit-button:first').show();
         },
         function () {
-            $(this).find('.edit-button').hide();
+            $(this).closest('div').find('.edit-button:first').hide();
         }
     );
 });

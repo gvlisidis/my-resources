@@ -33,7 +33,7 @@
     </div>
 
     @livewireScripts
-    <script src="{{ asset('js/edit-card.js') }}"></script>
+    {{-- <script src="{{ asset('js/edit-card.js') }}"></script> --}}
 </body>
 
 </html>

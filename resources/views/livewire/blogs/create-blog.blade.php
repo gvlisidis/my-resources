@@ -1,7 +1,9 @@
 <div class="fixed inset-0 bg-gray-900 opacity-90"></div>
-<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104" @click.away="editArticleModal = false">
-    <h3 class="mb-4 text-lg font-bold">Edit Article</h3>
-    <form class="w-104" wire:submit.prevent="update" action="#" method="post">
+<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104" 
+    @click.away="isOpen = false"
+>
+    <h3 class="mb-4 text-lg font-bold">Add New Blog</h3>
+    <form class="w-104" wire:submit.prevent="create" action="#" method="post">
         @csrf
         <div class="flex flex-col mb-4">
             <label for="title" class="font-bold">Title</label>
@@ -27,8 +29,9 @@
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
-        <div class="mt-8">
-            <x-button class="bg-blue-500 hover:bg-blue-600">Save</x-button>
+        <div class="flex mt-8">
+            <x-button class="mr-4 bg-blue-500 hover:bg-blue-600" wire:click.prevent="store()">Save</x-button>
+            <x-button class="mr-4 bg-gray-500 hover:bg-gray-600" wire:click.prevent="closeModal()">Cancel</x-button>
         </div>
 
     </form>
