@@ -1,4 +1,7 @@
 <div class="fixed inset-0 bg-gray-900 opacity-90"></div>
+@if ($isConfirmDeleteModalOpen)
+    @include('livewire.snippets.delete-snippet')
+@endif
 <div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104">
     <h3 class="mb-4 text-lg font-bold">{{ $method == 'create' ? 'Add New' : 'Edit'}} Snippet</h3>
     <form class="w-104" wire:submit.prevent="create" action="#" method="post">
@@ -26,7 +29,7 @@
             </div>
             <div>
                 @if($method == 'update')
-                    <x-button class="mr-4 bg-red-500 hover:bg-red-600" wire:click.prevent="delete({{ $snippet_id }})">
+                    <x-button class="mr-4 bg-red-500 hover:bg-red-600" wire:click.prevent="openConfirmDeleteModal()">
                         Delete
                     </x-button>
                 @endif

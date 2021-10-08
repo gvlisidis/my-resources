@@ -1,4 +1,7 @@
 <div class="fixed inset-0 bg-gray-900 opacity-90"></div>
+@if ($isConfirmDeleteModalOpen)
+    @include('livewire.videos.delete-video')
+@endif
 <div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104"
     @click.away="isOpen = false"
 >
@@ -28,7 +31,7 @@
             </div>
             <div>
                 @if($method == 'update')
-                    <x-button class="mr-4 bg-red-500 hover:bg-red-600" wire:click.prevent="delete({{ $video_id }})">
+                    <x-button class="mr-4 bg-red-500 hover:bg-red-600" wire:click.prevent="openConfirmDeleteModal()">
                         Delete
                     </x-button>
                 @endif

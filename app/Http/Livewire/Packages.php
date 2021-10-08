@@ -9,6 +9,7 @@ class Packages extends Component
 {
     public $title, $owner, $url, $package_id;
     public $isOpen = 0;
+    public $isConfirmDeleteModalOpen = 0;
     public $method;
 
     protected $rules = [
@@ -39,6 +40,16 @@ class Packages extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+    }
+
+    public function openConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = true;
+    }
+
+    public function closeConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
@@ -77,6 +88,7 @@ class Packages extends Component
         $package = Package::findOrFail($id);
         $package->delete();
 
+        $this->closeConfirmDeleteModal();
         $this->closeModal();
         $this->reset();
     }

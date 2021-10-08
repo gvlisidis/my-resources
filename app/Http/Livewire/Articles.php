@@ -9,6 +9,7 @@ class Articles extends Component
 {
     public $title, $author, $url, $article_id;
     public $isOpen = 0;
+    public $isConfirmDeleteModalOpen = 0;
     public $method;
 
     protected $rules = [
@@ -39,6 +40,16 @@ class Articles extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+    }
+
+    public function openConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = true;
+    }
+
+    public function closeConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
@@ -77,6 +88,7 @@ class Articles extends Component
         $article = Article::findOrFail($id);
         $article->delete();
 
+        $this->closeConfirmDeleteModal();
         $this->closeModal();
         $this->reset();
     }

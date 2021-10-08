@@ -9,6 +9,7 @@ class Snippets extends Component
 {
     public $title, $snippet_id, $body;
     public $isOpen = 0;
+    public $isConfirmDeleteModalOpen = 0;
     public $method;
 
     protected $rules = [
@@ -38,6 +39,16 @@ class Snippets extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+    }
+
+    public function openConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = true;
+    }
+
+    public function closeConfirmDeleteModal()
+    {
+        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
@@ -74,6 +85,7 @@ class Snippets extends Component
         $snippet = Snippet::findOrFail($id);
         $snippet->delete();
 
+        $this->closeConfirmDeleteModal();
         $this->closeModal();
         $this->reset();
     }
