@@ -24,6 +24,7 @@ class BookFactory extends Factory
         return [
             'user_id' => 1,
             'title' => $this->faker->words(rand(4, 8), true),
+            'author' => $this->faker->firstName,
             'path' => $this->faker->filePath() . '.pdf',
         ];
     }

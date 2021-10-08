@@ -2,25 +2,26 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Blog;
+use App\Models\Article;
+use App\Models\Package;
 use Livewire\Component;
 
-class Blogs extends Component
+class Packages extends Component
 {
-    public $title, $author, $url, $blog_id;
+    public $title, $owner, $url, $package_id;
     public $isOpen = 0;
     public $method;
 
     protected $rules = [
         'title' => 'required|min:8',
         'url' => 'required|url',
-        'author' => 'sometimes|nullable',
+        'owner' => 'required',
     ];
 
     public function render()
     {
-        return view('livewire.blogs.blogs', [
-            'blogs' => auth()->user()->blogs()->paginate(12),
+        return view('livewire.packages.packages', [
+            'packages' => auth()->user()->packages()->paginate(12),
         ]);
     }
 
@@ -45,16 +46,16 @@ class Blogs extends Component
     {
         $this->validate();
 
-        Blog::updateOrCreate(['id' => $this->blog_id], [
+        Package::updateOrCreate(['id' => $this->package_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'url' => $this->url,
-            'author' => $this->author,
+            'owner' => $this->owner,
         ]);
 
         session()->flash(
             'message',
-            $this->blog_id ? 'Blog Updated Successfully.' : 'Blog Created Successfully.'
+            $this->package_id ? 'Package Updated Successfully.' : 'Package Created Successfully.'
         );
         $this->closeModal();
         $this->reset();
@@ -62,11 +63,11 @@ class Blogs extends Component
 
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        $this->blog_id = $id;
-        $this->title = $blog->title;
-        $this->url = $blog->url;
-        $this->author = $blog->author;
+        $package = Package::findOrFail($id);
+        $this->package_id = $id;
+        $this->title = $package->title;
+        $this->url = $package->url;
+        $this->owner = $package->owner;
         $this->method = 'update';
 
         $this->openModal();

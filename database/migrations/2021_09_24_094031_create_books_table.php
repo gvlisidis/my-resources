@@ -17,6 +17,7 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('title');
+            $table->string('author');
             $table->string('path');
             $table->timestamps();
         });

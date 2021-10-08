@@ -9,6 +9,13 @@ class Articles extends Component
 {
     public $title, $author, $url, $article_id;
     public $isOpen = 0;
+    public $method;
+
+    protected $rules = [
+        'title' => 'required|min:8',
+        'url' => 'required|url',
+        'author' => 'sometimes|nullable',
+    ];
 
     public function render()
     {
@@ -20,6 +27,7 @@ class Articles extends Component
     public function create()
     {
         $this->reset();
+        $this->method = 'create';
         $this->openModal();
     }
 
@@ -35,11 +43,7 @@ class Articles extends Component
 
     public function store()
     {
-        $this->validate([
-            'title' => 'required',
-            'url' => 'required',
-            'author' => 'sometimes|nullable',
-        ]);
+        $this->validate();
 
         Article::updateOrCreate(['id' => $this->article_id], [
             'user_id' => auth()->id(),
@@ -63,6 +67,7 @@ class Articles extends Component
         $this->title = $article->title;
         $this->url = $article->url;
         $this->author = $article->author;
+        $this->method = 'update';
 
         $this->openModal();
     }

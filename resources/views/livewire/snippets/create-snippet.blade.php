@@ -1,6 +1,6 @@
 <div class="fixed inset-0 bg-gray-900 opacity-90"></div>
 <div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104">
-    <h3 class="mb-4 text-lg font-bold">{{ $method == 'create' ? 'Add New' : 'Edit'}} Article</h3>
+    <h3 class="mb-4 text-lg font-bold">{{ $method == 'create' ? 'Add New' : 'Edit'}} Snippet</h3>
     <form class="w-104" wire:submit.prevent="create" action="#" method="post">
         @csrf
         <div class="flex flex-col mb-4">
@@ -11,20 +11,12 @@
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
-        <div class="flex flex-col mb-4">
-            <label for="author" class="font-bold">Author</label>
-            <input type="text" name="author" wire:model='author' id="author"
-                class="w-full px-4 py-2 border-gray-500 rounded" value="" />
-            @error('author')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
         <div class="flex flex-col">
-            <label for="url" class="font-bold">Link</label>
-            <input type="text" name="url" wire:model='url' id="url" class="w-full px-4 py-2 border-gray-500 rounded"
-                value="" />
-            @error('url')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            <label for="body" class="font-bold">Body</label>
+            <textarea name="body" wire:model='body' id="body"
+                      class="w-full px-4 py-2 border-gray-500 rounded" value="" rows="4" cols="80"></textarea>
+            @error('body')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
         <div class="flex mt-8">

@@ -2,25 +2,24 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Blog;
+use App\Models\Snippet;
 use Livewire\Component;
 
-class Blogs extends Component
+class Snippets extends Component
 {
-    public $title, $author, $url, $blog_id;
+    public $title, $snippet_id, $body;
     public $isOpen = 0;
     public $method;
 
     protected $rules = [
         'title' => 'required|min:8',
-        'url' => 'required|url',
-        'author' => 'sometimes|nullable',
+        'body' => 'required',
     ];
 
     public function render()
     {
-        return view('livewire.blogs.blogs', [
-            'blogs' => auth()->user()->blogs()->paginate(12),
+        return view('livewire.snippets.snippets', [
+            'snippets' => auth()->user()->snippets()->paginate(12),
         ]);
     }
 
@@ -45,16 +44,15 @@ class Blogs extends Component
     {
         $this->validate();
 
-        Blog::updateOrCreate(['id' => $this->blog_id], [
+        Snippet::updateOrCreate(['id' => $this->snippet_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
-            'url' => $this->url,
-            'author' => $this->author,
+            'body' => $this->body,
         ]);
 
         session()->flash(
             'message',
-            $this->blog_id ? 'Blog Updated Successfully.' : 'Blog Created Successfully.'
+            $this->snippet_id ? 'Snippet Updated Successfully.' : 'Snippet Created Successfully.'
         );
         $this->closeModal();
         $this->reset();
@@ -62,11 +60,10 @@ class Blogs extends Component
 
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        $this->blog_id = $id;
-        $this->title = $blog->title;
-        $this->url = $blog->url;
-        $this->author = $blog->author;
+        $snippet = Snippet::findOrFail($id);
+        $this->snippet_id = $id;
+        $this->title = $snippet->title;
+        $this->body = $snippet->body;
         $this->method = 'update';
 
         $this->openModal();

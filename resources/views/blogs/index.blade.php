@@ -1,7 +1,7 @@
 @extends('resources.resources-layout')
 
 @section('content')
-    <divclass="relative">
+    <div class="relative">
         <livewire:blogs />
     </div>
 @endsection

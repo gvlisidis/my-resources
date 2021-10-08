@@ -1,8 +1,6 @@
 <div class="fixed inset-0 bg-gray-900 opacity-90"></div>
-<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104" 
-    @click.away="isOpen = false"
->
-    <h3 class="mb-4 text-lg font-bold">Add New Blog</h3>
+<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104">
+    <h3 class="mb-4 text-lg font-bold">{{ $method == 'create' ? 'Add New' : 'Edit'}} Blog</h3>
     <form class="w-104" wire:submit.prevent="create" action="#" method="post">
         @csrf
         <div class="flex flex-col mb-4">

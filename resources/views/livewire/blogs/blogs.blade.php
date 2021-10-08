@@ -3,12 +3,11 @@
         <p class="ml-12 text-2xl font-bold text-purple-800">Blogs</p>
         <div class="mr-12 ">
             <button wire:click="create()"
-                class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Create New
-                Blog</button>
+                class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Create New Blog</button>
         </div>
     </div>
     @if ($isOpen)
-        @include('livewire.blogs.create-blog')
+        @include('livewire.blogs.create-blog', ['method' => $method])
     @endif
 
     <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
@@ -19,7 +18,7 @@
                         class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600">Edit</button>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800"><a href="{{ $blog->url }}"
+                    <h2 class="text-lg font-bold text-gray-800"><a href="{{ $blog->url }}"
                             target="_blank">{{ $blog->title }}</a>
                     </h2>
                 </div>

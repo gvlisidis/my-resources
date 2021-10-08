@@ -2,25 +2,26 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Blog;
+use App\Models\Article;
+use App\Models\Book;
 use Livewire\Component;
 
-class Blogs extends Component
+class Books extends Component
 {
-    public $title, $author, $url, $blog_id;
+    public $title, $author, $path, $book_id;
     public $isOpen = 0;
     public $method;
 
     protected $rules = [
         'title' => 'required|min:8',
-        'url' => 'required|url',
+        'path' => 'required',
         'author' => 'sometimes|nullable',
     ];
 
     public function render()
     {
-        return view('livewire.blogs.blogs', [
-            'blogs' => auth()->user()->blogs()->paginate(12),
+        return view('livewire.books.books', [
+            'books' => auth()->user()->books()->paginate(12),
         ]);
     }
 
@@ -45,16 +46,16 @@ class Blogs extends Component
     {
         $this->validate();
 
-        Blog::updateOrCreate(['id' => $this->blog_id], [
+        Book::updateOrCreate(['id' => $this->book_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
-            'url' => $this->url,
+            'path' => $this->path,
             'author' => $this->author,
         ]);
 
         session()->flash(
             'message',
-            $this->blog_id ? 'Blog Updated Successfully.' : 'Blog Created Successfully.'
+            $this->book_id ? 'Book Updated Successfully.' : 'Book Created Successfully.'
         );
         $this->closeModal();
         $this->reset();
@@ -62,11 +63,11 @@ class Blogs extends Component
 
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        $this->blog_id = $id;
-        $this->title = $blog->title;
-        $this->url = $blog->url;
-        $this->author = $blog->author;
+        $book = Book::findOrFail($id);
+        $this->book_id = $id;
+        $this->title = $book->title;
+        $this->path = $book->path;
+        $this->author = $book->author;
         $this->method = 'update';
 
         $this->openModal();

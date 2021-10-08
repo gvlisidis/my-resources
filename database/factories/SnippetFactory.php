@@ -25,7 +25,6 @@ class SnippetFactory extends Factory
             'user_id' => 1,
             'title' => $this->faker->words(rand(4, 8), true),
             'body' => $this->faker->sentences(rand(3, 7), true),
-            'url' => $this->faker->url,
         ];
     }
 }

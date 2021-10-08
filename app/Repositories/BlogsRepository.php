@@ -1,11 +1,17 @@
 <?php
 
-use App\Repositories\RepositoryInterface;
+namespace App\Repositories;
 
-class BlogsRepository implements RepositoryInterface {
+use Illuminate\Support\Facades\Cache;
 
-    public function getCollection()
+class BlogsRepository implements RepositoryInterface
+{
+    public function all()
     {
-        return auth()->user()->blogs()->paginate(12);
+        if (!Cache::has('blogs-'.auth()->id())) {
+            Cache::put('blogs-'.auth()->id(), auth()->user()->blogs()->paginate(12));
+        }
+
+        return Cache::get('blogs-'.auth()->id());
     }
 }
