@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Article;
 use App\Models\Book;
 use Livewire\Component;
 
@@ -71,5 +70,14 @@ class Books extends Component
         $this->method = 'update';
 
         $this->openModal();
+    }
+
+    public function delete($id)
+    {
+        $book = Book::findOrFail($id);
+        $book->delete();
+
+        $this->closeModal();
+        $this->reset();
     }
 }

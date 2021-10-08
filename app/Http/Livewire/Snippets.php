@@ -68,4 +68,13 @@ class Snippets extends Component
 
         $this->openModal();
     }
+
+    public function delete($id)
+    {
+        $snippet = Snippet::findOrFail($id);
+        $snippet->delete();
+
+        $this->closeModal();
+        $this->reset();
+    }
 }

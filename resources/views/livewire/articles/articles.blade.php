@@ -1,6 +1,6 @@
 <div class="flex flex-col">
     <div class="flex justify-between">
-        <p class="ml-12 text-2xl font-bold text-purple-800">Articlessss</p>
+        <p class="ml-12 text-2xl font-bold text-purple-800">Articles</p>
         <div class="mr-12 ">
             <button wire:click="create()"
                 class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Create New

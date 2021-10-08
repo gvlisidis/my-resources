@@ -68,4 +68,13 @@ class Videos extends Component
 
         $this->openModal();
     }
+
+    public function delete($id)
+    {
+        $video = Video::findOrFail($id);
+        $video->delete();
+
+        $this->closeModal();
+        $this->reset();
+    }
 }

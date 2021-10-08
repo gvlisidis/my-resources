@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Article;
 use App\Models\Package;
 use Livewire\Component;
 
@@ -71,5 +70,14 @@ class Packages extends Component
         $this->method = 'update';
 
         $this->openModal();
+    }
+
+    public function delete($id)
+    {
+        $package = Package::findOrFail($id);
+        $package->delete();
+
+        $this->closeModal();
+        $this->reset();
     }
 }

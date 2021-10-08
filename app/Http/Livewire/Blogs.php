@@ -71,4 +71,13 @@ class Blogs extends Component
 
         $this->openModal();
     }
+
+    public function delete($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+
+        $this->closeModal();
+        $this->reset();
+    }
 }

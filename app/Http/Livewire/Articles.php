@@ -71,4 +71,13 @@ class Articles extends Component
 
         $this->openModal();
     }
+
+    public function delete($id)
+    {
+        $article = Article::findOrFail($id);
+        $article->delete();
+
+        $this->closeModal();
+        $this->reset();
+    }
 }
