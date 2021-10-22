@@ -13,20 +13,23 @@
 
     <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
         @foreach ($snippets as $snippet)
-            <div class="flex flex-col justify-around h-48 px-3 pt-0 pb-3 my-10 bg-white rounded-lg shadow-lg card w-80">
-                <div class="flex justify-end h-4">
-                    <button wire:click="edit({{ $snippet->id}})"
-                        class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600">Edit</button>
-                </div>
-                <div>
-                    <h2 class="text-lg font-bold text-gray-800"><a href="#"
-                            target="_blank">{{ $snippet->title }}</a>
-                    </h2>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-indigo-500">Tags</a>
+            <div x-data="{open: false}">
+                <div class="flex flex-col justify-around h-48 px-3 pt-0 pb-3 my-10 bg-white rounded-lg shadow-lg card w-80" @mouseover="open = true" @mouseover.away = "open = false">
+                    <div class="flex justify-end h-4">
+                        <button wire:click="edit({{ $snippet->id}})"
+                                class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600" x-show="open">Edit</button>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800"><a href="{{ route('test', $snippet) }}"
+                                                                       target="_blank">{{ $snippet->title }}</a>
+                        </h2>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <a href="#" class="text-xl font-medium text-indigo-500">Tags</a>
+                    </div>
                 </div>
             </div>
+
         @endforeach
     </div>
 </div>

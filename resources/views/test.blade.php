@@ -16,20 +16,14 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    @livewireStyles
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
-
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+    <div>
+        {!! $snippet->body !!}
     </div>
-
-    @livewireScripts
 </body>
 
 </html>

@@ -37,4 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('books')->as('books.')->group(function() {
         Route::get('', [ResourceController::class, 'resourceIndex'])->name('index');
     });
+
+    Route::get('/test/{snippet}', [SnippetController::class, 'show'])->name('test');
+//    Route::get('/test', function (){
+//        return view('test');
+//    })->name('test');
 });

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Tags\HasTags;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTags;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
