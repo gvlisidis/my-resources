@@ -34,7 +34,7 @@ class Books extends BaseResourceComponent
             'author' => $this->author,
         ]);
 
-        $book->syncTags($this->prepareTagsForSync($this->tags));
+        $book->syncTags($book->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

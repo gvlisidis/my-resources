@@ -39,7 +39,7 @@ class Blogs extends BaseResourceComponent
             'author' => $this->author,
         ]);
 
-        $blog->syncTags($this->prepareTagsForSync($this->tags));
+        $blog->syncTags($blog->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

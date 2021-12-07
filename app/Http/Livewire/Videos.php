@@ -33,7 +33,7 @@ class Videos extends BaseResourceComponent
             'url' => $this->url,
         ]);
 
-        $video->syncTags($this->prepareTagsForSync($this->tags));
+        $video->syncTags($video->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

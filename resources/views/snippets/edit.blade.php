@@ -24,7 +24,7 @@
             <div class="flex flex-col">
                 <label for="tags" class="font-bold">Tags (Comma seperated)</label>
                 <input type="text" name="tags" id="tags"
-                       class="w-full px-4 py-2 border-gray-500 rounded" value=""/>
+                       class="w-full px-4 py-2 border-gray-500 rounded" value="{{ $tags }}"/>
                 @error('tags')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

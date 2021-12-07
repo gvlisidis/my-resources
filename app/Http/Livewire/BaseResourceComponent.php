@@ -2,13 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Traits\HasTags;
 use Livewire\Component;
 
 class BaseResourceComponent extends Component
 {
-    use HasTags;
-
     public $tags;
     public $isOpen = 0;
     public $isConfirmDeleteModalOpen = 0;

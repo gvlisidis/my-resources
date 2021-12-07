@@ -34,7 +34,7 @@ class Packages extends BaseResourceComponent
             'owner' => $this->owner,
         ]);
 
-        $package->syncTags($this->prepareTagsForSync($this->tags));
+        $package->syncTags($package->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

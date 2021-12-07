@@ -24,8 +24,7 @@ class Snippets extends BaseResourceComponent
 
     public function store()
     {
-        $test = $this->validate();
-        dd($test);
+        $this->validate();
 
         $snippet = Snippet::updateOrCreate(['id' => $this->snippet_id], [
             'user_id' => auth()->id(),
@@ -33,7 +32,7 @@ class Snippets extends BaseResourceComponent
             'body' => $this->body,
         ]);
 
-        $snippet->syncTags($this->prepareTagsForSync($this->tags));
+        $snippet->syncTags($snippet->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

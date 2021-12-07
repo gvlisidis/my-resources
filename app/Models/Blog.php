@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Tags\HasTags;
+use \App\Traits\HasTags as HasLivewireTags;
 
 class Blog extends Model
 {
-    use HasFactory, HasTags;
+    use HasFactory, HasTags, HasLivewireTags;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

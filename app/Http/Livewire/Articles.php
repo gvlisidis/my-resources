@@ -33,7 +33,7 @@ class Articles extends BaseResourceComponent
             'author' => $this->author,
         ]);
 
-        $article->syncTags($this->prepareTagsForSync($this->tags));
+        $article->syncTags($article->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',

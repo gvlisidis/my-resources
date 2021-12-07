@@ -13,28 +13,33 @@
             </div>
             <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
                 @foreach ($snippets as $snippet)
-                    <div
-                        class="flex flex-col justify-around h-48 px-3 pt-0 my-10 bg-white rounded-lg shadow-lg card w-80">
-                        <div class="flex justify-end h-4">
-                            <a href="{{ route('snippets.edit', $snippet) }}"
-                                class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600">
-                                Edit
-                            </a>
-                        </div>
-                        <div>
-                            <h2 class="text-lg font-bold text-gray-800"><a href="{{ route('snippets.show', $snippet) }}"
-                                                                           target="_blank">{{ $snippet->title }}</a>
-                            </h2>
-                        </div>
-                        <div class="flex justify-start mt-4">
-                            @foreach($snippet->tags as $tag)
-                                <div class="mr-2">
-                                    <a href="#"
-                                       class="text-xxs bg-gray-200 px-2 text-gray-600 rounded rounded-xl">#{{ $tag->name }}</a>
-                                </div>
-                            @endforeach
+                    <div  x-data="{open: false}">
+                        <div
+                            @mouseover="open = true" @mouseover.away = "open = false"
+                            class="flex flex-col justify-around h-48 px-3 pt-0 my-10 bg-white rounded-lg shadow-lg card w-80">
+                            <div class="flex justify-end h-4">
+                                <a href="{{ route('snippets.edit', $snippet) }}"
+                                   x-show="open"
+                                   class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600">
+                                    Edit
+                                </a>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold text-gray-800"><a href="{{ route('snippets.show', $snippet) }}"
+                                                                               target="_blank">{{ $snippet->title }}</a>
+                                </h2>
+                            </div>
+                            <div class="flex justify-start mt-4">
+                                @foreach($snippet->tags as $tag)
+                                    <div class="mr-2">
+                                        <a href="#"
+                                           class="text-xxs bg-gray-200 px-2 text-gray-600 rounded rounded-xl">#{{ $tag->name }}</a>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
+
                 @endforeach
             </div>
         </div>
