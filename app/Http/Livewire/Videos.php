@@ -5,61 +5,35 @@ namespace App\Http\Livewire;
 use App\Models\Video;
 use Livewire\Component;
 
-class Videos extends Component
+class Videos extends BaseResourceComponent
 {
-    public $title, $url, $video_id;
-    public $isOpen = 0;
-    public $isConfirmDeleteModalOpen = 0;
-    public $method;
+    public $title, $url, $video_id, $tags;
+
 
     protected $rules = [
         'title' => 'required|min:8',
         'url' => 'required|url',
+        'tags' => '',
     ];
 
     public function render()
     {
         return view('livewire.videos.videos', [
-            'videos' => auth()->user()->videos()->paginate(12),
+            'videos' => auth()->user()->videos()->with('tags')->paginate(12),
         ]);
-    }
-
-    public function create()
-    {
-        $this->reset();
-        $this->method = 'create';
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    public function openConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = true;
-    }
-
-    public function closeConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
     {
         $this->validate();
 
-        Video::updateOrCreate(['id' => $this->video_id], [
+        $video = Video::updateOrCreate(['id' => $this->video_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'url' => $this->url,
         ]);
+
+        $video->syncTags($this->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',
@@ -76,6 +50,7 @@ class Videos extends Component
         $this->title = $video->title;
         $this->url = $video->url;
         $this->method = 'update';
+        $this->tags = $video->tags()->pluck('name');
 
         $this->openModal();
     }

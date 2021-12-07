@@ -5,63 +5,36 @@ namespace App\Http\Livewire;
 use App\Models\Package;
 use Livewire\Component;
 
-class Packages extends Component
+class Packages extends BaseResourceComponent
 {
-    public $title, $owner, $url, $package_id;
-    public $isOpen = 0;
-    public $isConfirmDeleteModalOpen = 0;
-    public $method;
+    public $title, $owner, $url, $package_id, $tags;
 
     protected $rules = [
         'title' => 'required|min:8',
         'url' => 'required|url',
         'owner' => 'required',
+        'tags' => '',
     ];
 
     public function render()
     {
         return view('livewire.packages.packages', [
-            'packages' => auth()->user()->packages()->paginate(12),
+            'packages' => auth()->user()->packages()->with('tags')->paginate(12),
         ]);
-    }
-
-    public function create()
-    {
-        $this->reset();
-        $this->method = 'create';
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    public function openConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = true;
-    }
-
-    public function closeConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
     {
         $this->validate();
 
-        Package::updateOrCreate(['id' => $this->package_id], [
+        $package = Package::updateOrCreate(['id' => $this->package_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'url' => $this->url,
             'owner' => $this->owner,
         ]);
+
+        $package->syncTags($this->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',
@@ -79,6 +52,7 @@ class Packages extends Component
         $this->url = $package->url;
         $this->owner = $package->owner;
         $this->method = 'update';
+        $this->tags = $package->tags()->pluck('name');
 
         $this->openModal();
     }

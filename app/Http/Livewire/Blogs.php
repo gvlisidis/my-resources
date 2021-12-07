@@ -3,65 +3,43 @@
 namespace App\Http\Livewire;
 
 use App\Models\Blog;
+use App\Traits\HasTags;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
-class Blogs extends Component
+class Blogs extends BaseResourceComponent
 {
-    public $title, $author, $url, $blog_id;
-    public $isOpen = 0;
-    public $isConfirmDeleteModalOpen = 0;
-    public $method;
+    use HasTags;
+
+    public $title, $author, $url, $blog_id, $tags;
+
 
     protected $rules = [
         'title' => 'required|min:8',
         'url' => 'required|url',
         'author' => 'sometimes|nullable',
+        'tags' => '',
     ];
 
     public function render()
     {
         return view('livewire.blogs.blogs', [
-            'blogs' => auth()->user()->blogs()->paginate(12),
+            'blogs' => auth()->user()->blogs()->with('tags')->paginate(12),
         ]);
-    }
-
-    public function create()
-    {
-        $this->reset();
-        $this->method = 'create';
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    public function openConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = true;
-    }
-
-    public function closeConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
     {
         $this->validate();
 
-        Blog::updateOrCreate(['id' => $this->blog_id], [
+        $blog = Blog::updateOrCreate(['id' => $this->blog_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'url' => $this->url,
             'author' => $this->author,
         ]);
+
+        $blog->syncTags($this->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',
@@ -78,6 +56,7 @@ class Blogs extends Component
         $this->title = $blog->title;
         $this->url = $blog->url;
         $this->author = $blog->author;
+        $this->tags = $blog->tags()->pluck('name');
         $this->method = 'update';
 
         $this->openModal();

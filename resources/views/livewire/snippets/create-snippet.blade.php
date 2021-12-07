@@ -8,16 +8,24 @@
         @csrf
         <div class="flex flex-col mb-4">
             <label for="title" class="font-bold">Title</label>
-            <input type="text" wire:model='title' name="title" id="title"
+            <input type="text" wire:model.defer='title' name="title" id="title"
                 class="w-104 px-4 py-2 border-gray-500 rounded" value="" />
             @error('title')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col mb-4">
             <label for="body" class="font-bold">Body</label>
-            <textarea name="body" wire:model='body' id="body" class="w-full px-4 py-2 border-gray-500 rounded rounded-smt" rows="17" value=""></textarea>
+            <textarea name="body" wire:model.defer='body' id="body" class="w-full px-4 py-2 border-gray-500 rounded rounded-smt" rows="17" value=""></textarea>
             @error('body')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="flex flex-col">
+            <label for="tags" class="font-bold">Tags (Comma seperated)</label>
+            <input type="text" wire:model='tags' name="tags" id="tags"
+                   class="w-full px-4 py-2 border-gray-500 rounded" value=""/>
+            @error('tags')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
@@ -36,3 +44,11 @@
         </div>
     </form>
 </div>
+
+<script>
+    const editor = CKEDITOR.replace( 'body' );
+    editor.on('change', function(event){
+        console.log(event.editor.getData())
+    @this.set('body', event.editor.getData());
+    })
+</script>

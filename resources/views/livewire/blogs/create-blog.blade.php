@@ -2,7 +2,7 @@
 @if ($isConfirmDeleteModalOpen)
     @include('livewire.blogs.delete-blog')
 @endif
-<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-104">
+<div class="fixed inset-0 max-w-md p-4 m-auto bg-white rounded-md shadow-md max-h-128">
     <h3 class="mb-4 text-lg font-bold">{{ $method == 'create' ? 'Add New' : 'Edit'}} Blog</h3>
     <form class="w-104" wire:submit.prevent="create" action="#" method="post">
         @csrf
@@ -22,12 +22,20 @@
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col mb-4">
             <label for="url" class="font-bold">Link</label>
             <input type="text" name="url" wire:model='url' id="url" class="w-full px-4 py-2 border-gray-500 rounded"
                 value="" />
             @error('url')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="flex flex-col">
+            <label for="tags" class="font-bold">Tags (Comma seperated)</label>
+            <input type="text" wire:model='tags' name="tags" id="tags"
+                   class="w-full px-4 py-2 border-gray-500 rounded" value=""/>
+            @error('tags')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
         <div class="flex mt-8 justify-between">

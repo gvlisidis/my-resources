@@ -5,63 +5,36 @@ namespace App\Http\Livewire;
 use App\Models\Book;
 use Livewire\Component;
 
-class Books extends Component
+class Books extends BaseResourceComponent
 {
-    public $title, $author, $path, $book_id;
-    public $isOpen = 0;
-    public $isConfirmDeleteModalOpen = 0;
-    public $method;
+    public $title, $author, $path, $book_id, $tags;
 
     protected $rules = [
         'title' => 'required|min:8',
         'path' => 'required',
         'author' => 'sometimes|nullable',
+        'tags' => '',
     ];
 
     public function render()
     {
         return view('livewire.books.books', [
-            'books' => auth()->user()->books()->paginate(12),
+            'books' => auth()->user()->books()->with('tags')->paginate(12),
         ]);
-    }
-
-    public function create()
-    {
-        $this->reset();
-        $this->method = 'create';
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    public function openConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = true;
-    }
-
-    public function closeConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
     {
         $this->validate();
 
-        Book::updateOrCreate(['id' => $this->book_id], [
+        $book = Book::updateOrCreate(['id' => $this->book_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'path' => $this->path,
             'author' => $this->author,
         ]);
+
+        $book->syncTags($this->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',
@@ -79,6 +52,7 @@ class Books extends Component
         $this->path = $book->path;
         $this->author = $book->author;
         $this->method = 'update';
+        $this->tags = $book->tags()->pluck('name');
 
         $this->openModal();
     }

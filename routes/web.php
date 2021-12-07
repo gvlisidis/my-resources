@@ -19,7 +19,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('snippets')->as('snippets.')->group(function() {
-        Route::get('', [ResourceController::class, 'resourceIndex'])->name('index');
+        Route::get('', [SnippetController::class, 'index'])->name('index');
+        Route::get('create', [SnippetController::class, 'create'])->name('create');
+        Route::get('{snippet}', [SnippetController::class, 'show'])->name('show');
+        Route::get('edit/{snippet}', [SnippetController::class, 'edit'])->name('edit');
+        Route::post('', [SnippetController::class, 'store'])->name('store');
+        Route::patch('update/{snippet}', [SnippetController::class, 'update'])->name('update');
     });
 
     Route::prefix('blogs')->as('blogs.')->group(function() {
@@ -37,9 +42,4 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('books')->as('books.')->group(function() {
         Route::get('', [ResourceController::class, 'resourceIndex'])->name('index');
     });
-
-    Route::get('/test/{snippet}', [SnippetController::class, 'show'])->name('test');
-//    Route::get('/test', function (){
-//        return view('test');
-//    })->name('test');
 });

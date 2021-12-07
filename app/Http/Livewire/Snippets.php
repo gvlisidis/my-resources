@@ -5,61 +5,35 @@ namespace App\Http\Livewire;
 use App\Models\Snippet;
 use Livewire\Component;
 
-class Snippets extends Component
+class Snippets extends BaseResourceComponent
 {
-    public $title, $snippet_id, $body;
-    public $isOpen = 0;
-    public $isConfirmDeleteModalOpen = 0;
-    public $method;
+    public $title, $snippet_id, $body, $tags;
 
     protected $rules = [
         'title' => 'required|min:8',
         'body' => 'required',
+        'tags' => '',
     ];
 
     public function render()
     {
         return view('livewire.snippets.snippets', [
-            'snippets' => auth()->user()->snippets()->paginate(12),
+            'snippets' => auth()->user()->snippets()->with('tags')->paginate(12),
         ]);
-    }
-
-    public function create()
-    {
-        $this->reset();
-        $this->method = 'create';
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    public function openConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = true;
-    }
-
-    public function closeConfirmDeleteModal()
-    {
-        $this->isConfirmDeleteModalOpen = false;
     }
 
     public function store()
     {
-        $this->validate();
+        $test = $this->validate();
+        dd($test);
 
-        Snippet::updateOrCreate(['id' => $this->snippet_id], [
+        $snippet = Snippet::updateOrCreate(['id' => $this->snippet_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
             'body' => $this->body,
         ]);
+
+        $snippet->syncTags($this->prepareTagsForSync($this->tags));
 
         session()->flash(
             'message',
@@ -76,6 +50,7 @@ class Snippets extends Component
         $this->title = $snippet->title;
         $this->body = $snippet->body;
         $this->method = 'update';
+        $this->tags = $snippet->tags()->pluck('name');
 
         $this->openModal();
     }

@@ -4,7 +4,7 @@
         <div class="mr-12 ">
             <button wire:click="create()"
                 class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Create New
-                Articles</button>
+                Article</button>
         </div>
     </div>
     @if ($isOpen)
