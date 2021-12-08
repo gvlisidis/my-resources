@@ -16,7 +16,7 @@
             </div>
             <div class="flex flex-col mb-4">
                 <label for="body" class="font-bold">Body</label>
-                <textarea name="body" id="body" class="w-full px-4 py-2 border-gray-500 rounded rounded-smt" rows="17" >{{ htmlspecialchars($snippet->body)  }}</textarea>
+                <textarea name="body" id="body" class="w-full px-4 py-2 border-gray-500 rounded rounded-smt" rows="17" >{{ $snippet->body  }}</textarea>
                 @error('body')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -24,7 +24,7 @@
             <div class="flex flex-col">
                 <label for="tags" class="font-bold">Tags (Comma seperated)</label>
                 <input type="text" name="tags" id="tags"
-                       class="w-full px-4 py-2 border-gray-500 rounded" value="{{ $tags }}"/>
+                       class="w-full px-4 py-2 border-gray-500 rounded" value="{{ \Illuminate\Support\Str::remove(['[', ']', '"'], $snippet->tags->pluck('name')) }}"/>
                 @error('tags')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

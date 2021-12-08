@@ -33659,6 +33659,17 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.code-tag {
+  color:rgb(171, 178, 191);
+  font-size: 12px;
+  font-weight:400;
+  background:rgb(40, 44, 52);
+  display:block;
+  padding: 2em;
+  border-radius:5px;
+  width: 100%;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

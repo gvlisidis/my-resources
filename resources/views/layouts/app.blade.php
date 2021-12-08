@@ -13,15 +13,13 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
-
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans">
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 
@@ -32,6 +30,7 @@
     </div>
 
     @livewireScripts
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
 </body>
 
 </html>

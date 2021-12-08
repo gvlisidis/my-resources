@@ -35,14 +35,8 @@ class SnippetController extends Controller
 
     public function edit(Snippet $snippet)
     {
-        $tags = $snippet->tags()->pluck('name');
-        $tags = Str::remove('[',$tags);
-        $tags = Str::remove(']',$tags);
-        $tags = Str::remove('"',$tags);
-
         return view('snippets.edit', [
             'snippet' => $snippet,
-            'tags' => $tags,
         ]);
     }
 

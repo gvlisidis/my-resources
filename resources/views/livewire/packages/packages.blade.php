@@ -3,7 +3,7 @@
         <p class="ml-12 text-2xl font-bold text-purple-800">Packages</p>
         <div class="mr-12 ">
             <button wire:click="create()"
-                class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Create New
+                class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Add New
                 Package</button>
         </div>
     </div>
