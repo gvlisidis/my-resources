@@ -42,11 +42,17 @@ class SnippetController extends Controller
 
     public function update(Request $request, Snippet $snippet)
     {
+        dd(3);
         $data = $request->only('title', 'body');
 
         $snippet->update($data + ['user_id' => auth()->id()]);
         $snippet->syncTags($snippet->prepareTagsForSync($request->tags));
 
         return redirect()->route('snippets.index');
+    }
+
+    public function destroy(Snippet $snippet)
+    {
+        dd($snippet);
     }
 }

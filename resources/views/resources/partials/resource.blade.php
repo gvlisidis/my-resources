@@ -1,5 +1,5 @@
 <div class="flex flex-col mb-8">
-    <p class="ml-12 text-2xl font-bold text-purple-800">{{ $title }}</p>
+    <p class="ml-16 pl-2 text-2xl font-bold text-purple-800">{{ $title }}</p>
     <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
         @forelse($resources as $resource)
             <div class="flex flex-col justify-around h-48 p-3 my-10 bg-white rounded-lg shadow-lg card w-80">

@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('edit/{snippet}', [SnippetController::class, 'edit'])->name('edit');
         Route::post('', [SnippetController::class, 'store'])->name('store');
         Route::patch('update/{snippet}', [SnippetController::class, 'update'])->name('update');
+        Route::delete('delete/{snippet}', [SnippetController::class, 'destroy'])->name('delete');
     });
 
     Route::prefix('blogs')->as('blogs.')->group(function() {

@@ -96,6 +96,36 @@
             <x-responsive-nav-link :href="route('resources.index')" :active="request()->routeIs('resources.index')">
                 {{ __('Resources') }}
             </x-responsive-nav-link>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+                    {{ __('Articles') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('snippets.index')" :active="request()->routeIs('snippets.index')">
+                    {{ __('Snippets') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('blogs.index')" :active="request()->routeIs('blogs.index')">
+                    {{ __('Blogs') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.index')">
+                    {{ __('Packages') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('videos.index')" :active="request()->routeIs('videos.index')">
+                    {{ __('Videos') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                    {{ __('Books') }}
+                </x-responsive-nav-link>
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->

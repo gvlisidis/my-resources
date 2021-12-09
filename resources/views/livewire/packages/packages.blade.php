@@ -1,7 +1,7 @@
 <div class="flex flex-col">
-    <div class="flex justify-between">
-        <p class="ml-12 text-2xl font-bold text-purple-800">Packages</p>
-        <div class="mr-12 ">
+    <div class="flex flex-col md:flex-row mb-4 justify-center items-center md:justify-between">
+        <p class="md:ml-16 text-2xl mb-4 md:mb-0 font-bold text-purple-800">Packages</p>
+        <div class="md:mr-16">
             <button wire:click="create()"
                 class="px-4 py-2 text-center text-white bg-green-500 rounded hover:bg-green-600">Add New
                 Package</button>
@@ -11,10 +11,10 @@
         @include('livewire.packages.create-package')
     @endif
 
-    <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 xl:grid-cols-4">
         @foreach ($packages as $package)
             <div x-data="{open: false}">
-                <div class="flex flex-col justify-around h-48 px-3 pt-0 my-10 bg-white rounded-lg shadow-lg card w-80" @mouseover="open = true" @mouseover.away = "open = false">
+                <div class="flex flex-col justify-around h-48 px-3 py-0 my-2 md:my-10 bg-white rounded-lg shadow-lg card w-80" @mouseover="open = true" @mouseover.away = "open = false">
                     <div class="flex justify-end h-4">
                         <button wire:click="edit({{ $package->id }})"
                                 class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600" x-show="open">Edit</button>
