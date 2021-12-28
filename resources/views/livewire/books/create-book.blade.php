@@ -15,10 +15,9 @@
             @enderror
         </div>
         <div class="flex flex-col mb-4">
-            <label for="path" class="font-bold">Path</label>
-            <input type="text" name="path" wire:model='path' id="path" class="w-full px-4 py-2 border-gray-500 rounded"
-                value="" />
-            @error('url')
+            <label for="file" class="font-bold">File</label>
+            <input type="file" wire:model="file" placeholder="Choose file" id="file" class="w-full px-4 py-2 border-gray-500 rounded" value="">
+            @error('file')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>

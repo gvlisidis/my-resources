@@ -15,7 +15,8 @@
         @foreach ($packages as $package)
             <div x-data="{open: false}">
                 <div class="flex flex-col justify-around h-48 px-3 py-0 my-2 md:my-10 bg-white rounded-lg shadow-lg card w-80" @mouseover="open = true" @mouseover.away = "open = false">
-                    <div class="flex justify-end h-4">
+                    <div class="flex justify-between h-4">
+                        <div class="text-xxs text-gray-400">{{ $package->created_at->format('F jS, Y') }}</div>
                         <button wire:click="edit({{ $package->id }})"
                                 class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600" x-show="open">Edit</button>
                     </div>

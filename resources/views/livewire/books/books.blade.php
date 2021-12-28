@@ -11,18 +11,17 @@
         @include('livewire.books.create-book')
     @endif
 
-    <div class="grid grid-cols-1 gap-4 xl:gap-1 mx-auto md:grid-cols-2 xl:grid-cols-4">
+    <div class="grid grid-cols-1 xl:gap-4 gap-1 mx-auto md:grid-cols-2 xl:grid-cols-4">
         @foreach ($books as $book)
             <div x-data="{open: false}">
                 <div class="flex flex-col justify-around h-48 px-3 py-0 my-2 md:my-10 bg-white rounded-lg shadow-lg card w-80" @mouseover="open = true" @mouseover.away = "open = false">
-                    <div class="flex justify-end h-4">
+                    <div class="flex justify-between h-4">
+                        <div class="text-xxs text-gray-400">{{ $book->created_at->format('F jS, Y') }}</div>
                         <button wire:click="edit({{ $book->id }})"
                                 class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600" x-show="open">Edit</button>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-gray-800"><a href="{{ $book->url }}"
-                                                                       target="_blank">{{ $book->title }}</a>
-                        </h2>
+                        <h2 class="text-lg font-bold text-gray-800"><button wire:click="openPDF({{ $book->id }})"> {{ $book->title }}</button></h2>
                     </div>
                     <div class="flex justify-start mt-4">
                         @foreach($book->tags as $tag)

@@ -17,7 +17,8 @@
                         <div
                             @mouseover="open = true" @mouseover.away = "open = false"
                             class="flex flex-col justify-around h-48 px-3 pt-0 my-2 md:my-10 bg-white rounded-lg shadow-lg card w-80">
-                            <div class="flex justify-end h-4">
+                            <div class="flex justify-between h-4">
+                                <div class="text-xxs text-gray-400">{{ $snippet->created_at->format('F jS, Y') }}</div>
                                 <a href="{{ route('snippets.edit', $snippet) }}"
                                    x-show="open"
                                    class="w-8 text-xs font-semibold text-center text-white bg-red-500 rounded edit-button hover:bg-red-600">

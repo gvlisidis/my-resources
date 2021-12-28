@@ -3,15 +3,19 @@
 namespace App\Http\Livewire;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Books extends BaseResourceComponent
 {
-    public $title, $author, $path, $book_id, $tags;
+    use WithFileUploads;
+
+    public $title, $author, $file, $book_id, $tags;
 
     protected $rules = [
-        'title' => 'required|min:8',
-        'path' => 'required',
+        'title' => 'required|min:5',
+        'file' => 'required|file',
         'author' => 'sometimes|nullable',
         'tags' => '',
     ];
@@ -23,14 +27,23 @@ class Books extends BaseResourceComponent
         ]);
     }
 
+    public function openPDF($id)
+    {
+        $book = Book::findOrFail($id);
+
+        return response()->download(storage_path('app/' . $book->path));
+    }
+
     public function store()
     {
         $this->validate();
 
+        $file = $this->file->storeAs('books', $this->title . '.pdf');
+
         $book = Book::updateOrCreate(['id' => $this->book_id], [
             'user_id' => auth()->id(),
             'title' => $this->title,
-            'path' => $this->path,
+            'path' => $file,
             'author' => $this->author,
         ]);
 
