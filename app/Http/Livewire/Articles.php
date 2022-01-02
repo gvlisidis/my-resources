@@ -6,7 +6,7 @@ use App\Models\Article;
 
 class Articles extends BaseResourceComponent
 {
-    public $title, $author, $url, $article_id, $tags;
+    public $title, $author, $url, $article_id;
 
     protected $rules = [
         'title' => 'required|min:8',
@@ -19,6 +19,8 @@ class Articles extends BaseResourceComponent
     {
         return view('livewire.articles.articles', [
              'articles' => auth()->user()->articles()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 

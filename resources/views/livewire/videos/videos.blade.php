@@ -1,4 +1,7 @@
 <div class="flex flex-col">
+    <div class="md:ml-16 md:mr-16">
+        @include('resources.partials.search-field')
+    </div>
     <div class="flex flex-col md:flex-row mb-4 justify-center items-center md:justify-between">
         <p class="md:ml-16 text-2xl mb-4 md:mb-0 font-bold text-purple-800">Videos</p>
         <div class="md:mr-16">

@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Packages extends BaseResourceComponent
 {
-    public $title, $owner, $url, $package_id, $tags;
+    public $title, $owner, $url, $package_id;
 
     protected $rules = [
         'title' => 'required|min:8',
@@ -20,6 +20,8 @@ class Packages extends BaseResourceComponent
     {
         return view('livewire.packages.packages', [
             'packages' => auth()->user()->packages()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 

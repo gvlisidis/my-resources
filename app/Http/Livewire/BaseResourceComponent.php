@@ -10,6 +10,8 @@ class BaseResourceComponent extends Component
     public $isOpen = 0;
     public $isConfirmDeleteModalOpen = 0;
     public $method;
+    public $searchTerm;
+    public $model;
 
     public function create()
     {

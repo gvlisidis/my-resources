@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Videos extends BaseResourceComponent
 {
-    public $title, $url, $video_id, $tags;
+    public $title, $url, $video_id;
 
 
     protected $rules = [
@@ -20,6 +20,8 @@ class Videos extends BaseResourceComponent
     {
         return view('livewire.videos.videos', [
             'videos' => auth()->user()->videos()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 

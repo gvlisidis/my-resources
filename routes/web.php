@@ -43,4 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('books')->as('books.')->group(function() {
         Route::get('', [ResourceController::class, 'resourceIndex'])->name('index');
     });
+
+    Route::get('search', [ResourceController::class, 'search'])->name('search');
 });

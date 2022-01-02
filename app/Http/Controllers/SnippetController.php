@@ -10,7 +10,11 @@ class SnippetController extends Controller
 {
     public function index()
     {
-        return view('snippets.index')->with('snippets', auth()->user()->snippets()->with('tags')->paginate(12));
+        return view('snippets.index')->with([
+            'snippets' => auth()->user()->snippets()->with('tags')->paginate(12),
+            'searchTerm' => null,
+            'model' => null,
+        ]);
     }
 
     public function show(Snippet $snippet)
@@ -25,12 +29,12 @@ class SnippetController extends Controller
 
     public function store(Request $request)
     {
-       $data = $request->only('title', 'body');
+        $data = $request->only('title', 'body');
 
-       $snippet = Snippet::create($data + ['user_id' => auth()->id()]);
-       $snippet->syncTags($snippet->prepareTagsForSync($request->tags));
+        $snippet = Snippet::create($data + ['user_id' => auth()->id()]);
+        $snippet->syncTags($snippet->prepareTagsForSync($request->tags));
 
-       return redirect()->route('snippets.index');
+        return redirect()->route('snippets.index');
     }
 
     public function edit(Snippet $snippet)

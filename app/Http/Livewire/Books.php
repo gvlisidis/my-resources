@@ -11,7 +11,7 @@ class Books extends BaseResourceComponent
 {
     use WithFileUploads;
 
-    public $title, $author, $file, $book_id, $tags;
+    public $title, $author, $file, $book_id;
 
     protected $rules = [
         'title' => 'required|min:5',
@@ -24,6 +24,8 @@ class Books extends BaseResourceComponent
     {
         return view('livewire.books.books', [
             'books' => auth()->user()->books()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 

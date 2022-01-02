@@ -11,7 +11,7 @@ class Blogs extends BaseResourceComponent
 {
     use HasTags;
 
-    public $title, $author, $url, $blog_id, $tags;
+    public $title, $author, $url, $blog_id;
 
 
     protected $rules = [
@@ -25,6 +25,8 @@ class Blogs extends BaseResourceComponent
     {
         return view('livewire.blogs.blogs', [
             'blogs' => auth()->user()->blogs()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 

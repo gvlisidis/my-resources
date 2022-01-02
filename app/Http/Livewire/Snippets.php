@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Snippets extends BaseResourceComponent
 {
-    public $title, $snippet_id, $body, $tags;
+    public $title, $snippet_id, $body;
 
     protected $rules = [
         'title' => 'required|min:8',
@@ -19,6 +19,8 @@ class Snippets extends BaseResourceComponent
     {
         return view('livewire.snippets.snippets', [
             'snippets' => auth()->user()->snippets()->with('tags')->paginate(12),
+            'searchTerm' => $this->searchTerm,
+            'model' => $this->model,
         ]);
     }
 
