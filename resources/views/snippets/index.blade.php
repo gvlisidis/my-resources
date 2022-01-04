@@ -36,7 +36,7 @@
                             <div class="flex justify-start mt-4">
                                 @foreach($snippet->tags as $tag)
                                     <div class="mr-2">
-                                        <a href="#"
+                                        <a href="{{ route('tags.show', $tag) }}"
                                            class="text-xxs bg-gray-200 px-2 text-gray-600 rounded rounded-xl">#{{ $tag->name }}</a>
                                     </div>
                                 @endforeach

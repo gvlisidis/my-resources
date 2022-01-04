@@ -58,6 +58,3 @@
     </script>
 
 @endsection
-
-
-egg man is destroying the world.

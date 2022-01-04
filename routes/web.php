@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SnippetController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('search', [ResourceController::class, 'search'])->name('search');
+    Route::get('tags/{tag}', [TagController::class, 'showResources'])->name('tags.show');
 });

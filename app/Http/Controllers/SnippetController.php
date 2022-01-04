@@ -46,7 +46,6 @@ class SnippetController extends Controller
 
     public function update(Request $request, Snippet $snippet)
     {
-        dd(3);
         $data = $request->only('title', 'body');
 
         $snippet->update($data + ['user_id' => auth()->id()]);
@@ -57,6 +56,8 @@ class SnippetController extends Controller
 
     public function destroy(Snippet $snippet)
     {
-        dd($snippet);
+        $snippet->delete();
+
+        return redirect()->route('snippets.index');
     }
 }
