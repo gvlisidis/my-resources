@@ -15,7 +15,7 @@
     @endif
 
     <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 xl:grid-cols-4">
-        @foreach ($blogs as $blog)
+        @forelse ($blogs as $blog)
             <div x-data="{open: false}">
                 <div class="flex flex-col justify-around h-48 px-3 py-0 my-2 md:my-10 bg-white rounded-lg shadow-lg card w-80"
                      @mouseover="open = true" @mouseover.away="open = false">
@@ -40,8 +40,9 @@
                     </div>
                 </div>
             </div>
-
-        @endforeach
+        @empty
+            <p class="">No blogs found!</p>
+        @endforelse
     </div>
 </div>
 

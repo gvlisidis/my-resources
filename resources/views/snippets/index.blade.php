@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-2 xl:grid-cols-4">
-                @foreach ($snippets as $snippet)
+                @forelse ($snippets as $snippet)
                     <div  x-data="{open: false}">
                         <div
                             @mouseover="open = true" @mouseover.away = "open = false"
@@ -43,8 +43,9 @@
                             </div>
                         </div>
                     </div>
-
-                @endforeach
+                @empty
+                    <p class="">No snippets found!</p>
+                @endforelse
             </div>
         </div>
         <div>
