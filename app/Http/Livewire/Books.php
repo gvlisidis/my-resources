@@ -11,7 +11,7 @@ class Books extends BaseResourceComponent
 {
     use WithFileUploads;
 
-    public $title, $author, $file, $book_id;
+    public $title, $author, $file, $book_id, $path;
 
     protected $rules = [
         'title' => 'required|min:5',
@@ -75,6 +75,8 @@ class Books extends BaseResourceComponent
     public function delete($id)
     {
         $book = Book::findOrFail($id);
+
+        Storage::delete($book->path);
         $book->delete();
 
         $this->closeConfirmDeleteModal();
