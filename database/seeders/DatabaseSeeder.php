@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
              'name' => 'George',
              'email' => 'gv@mail.com',
          ]);
-         
-         Article::factory(36)->create();
-         Blog::factory(25)->create();
-         Video::factory(51)->create();
-         Package::factory(6)->create();
-         Snippet::factory(94)->create();
-         Book::factory(14)->create();
+
+//         Article::factory(36)->create();
+//         Blog::factory(25)->create();
+//         Video::factory(51)->create();
+//         Package::factory(6)->create();
+//         Snippet::factory(94)->create();
+//         Book::factory(14)->create();
     }
 }
